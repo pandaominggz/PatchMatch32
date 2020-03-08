@@ -245,12 +245,13 @@ def reconstruction(f, A, B):
     Image.fromarray(temp).show()
 
 
-# img = Image.open('./left.jpg')
-# ref = Image.open('./right.jpg')
-img = Image.open('./cup_a.jpg')
-ref = Image.open('./cup_b.jpg')
+img = Image.open('./left.jpg')
+ref = Image.open('./right.jpg')
+# img = Image.open('./cup_a.jpg')
+# ref = Image.open('./cup_b.jpg')
 width = img.size[0]
 height = img.size[1]
+
 # print(img.size[0])
 # a, b = multi_scale_pm(img, ref)
 # print(a)
@@ -263,7 +264,7 @@ height = img.size[1]
 net = NET.Net()
 devices = torch.cuda.current_device()
 net = net.to(devices)
-temp = np.ones((width, height)) * -1.5
+temp = np.ones((height, width)) * -1.5
 flag = True
 count = 0
 while (flag):
@@ -274,7 +275,8 @@ while (flag):
             if temp[i, j] == -1.5:
                 if b[i, j][0] == i and j - b[i, j][1] > 0:
                     temp[i, j] = j - b[i, j][1]
-    if count==1:
+    print(count)
+    if count==50:
         flag = False
 
 count = 0
