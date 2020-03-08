@@ -57,8 +57,8 @@ class Net(nn.Module):
         a = img_to_tens(padder(image_a)).detach().permute(1, 2, 0).to(device)
         b = img_to_tens(padder(image_b)).detach().permute(1, 2, 0).to(device)
         shape = a.shape
-        imgL = a.view(1, 3, shape[0], shape[1])
-        imgR = b.view(1, 3, shape[0], shape[1])
+        imgL = a.reshape((1, 3, shape[0], shape[1]))
+        imgR = b.reshape((1, 3, shape[0], shape[1]))
 
         imgL = F.relu(self.bn0(self.conv0(imgL)))
         imgR = F.relu(self.bn0(self.conv0(imgR)))
