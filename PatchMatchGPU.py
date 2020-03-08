@@ -245,12 +245,12 @@ def reconstruction(f, A, B):
     Image.fromarray(temp).show()
 
 
-img = Image.open('./left.jpg')
-ref = Image.open('./right.jpg')
+# img = Image.open('./left.jpg')
+# ref = Image.open('./right.jpg')
 # img = Image.open('./cup_a.jpg')
 # ref = Image.open('./cup_b.jpg')
-width = img.size[0]
-height = img.size[1]
+# width = img.size[0]
+# height = img.size[1]
 
 # print(img.size[0])
 # a, b = multi_scale_pm(img, ref)
@@ -261,28 +261,28 @@ height = img.size[1]
 # reconstruction(b,img,ref)
 # print(a.shape)
 # print(b.shape)
-net = NET.Net()
-devices = torch.cuda.current_device()
-net = net.to(devices)
-temp = np.ones((height, width)) * -1.5
-flag = True
-count = 0
-while (flag):
-    a, b = multi_scale_pm(img, ref)
-    count += 1
-    for i in range(height):
-        for j in range(width):
-            if temp[i, j] == -1.5:
-                if b[i, j][0] == i and j - b[i, j][1] > 0:
-                    temp[i, j] = j - b[i, j][1]
-    print(count)
-    if count==50:
-        flag = False
-
-count = 0
-for i in range(height):
-    for j in range(width):
-        if temp[i, j]==-1.5:
-            count = count+1
-
-print(count/(width*height))
+# net = NET.Net()
+# devices = torch.cuda.current_device()
+# net = net.to(devices)
+# temp = np.ones((height, width)) * -1.5
+# flag = True
+# count = 0
+# while (flag):
+#     a, b = multi_scale_pm(img, ref)
+#     count += 1
+#     for i in range(height):
+#         for j in range(width):
+#             if temp[i, j] == -1.5:
+#                 if b[i, j][0] == i and j - b[i, j][1] > 0:
+#                     temp[i, j] = j - b[i, j][1]
+#     print(count)
+#     if count==50:
+#         flag = False
+#
+# count = 0
+# for i in range(height):
+#     for j in range(width):
+#         if temp[i, j]==-1.5:
+#             count = count+1
+#
+# print(count/(width*height))
