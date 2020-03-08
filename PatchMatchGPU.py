@@ -265,19 +265,19 @@ def reconstruction(f, A, B):
 # devices = torch.cuda.current_device()
 # net = net.to(devices)
 # temp = np.ones((height, width)) * -1.5
-# flag = True
-# count = 0
-# while (flag):
-#     a, b = multi_scale_pm(img, ref)
-#     count += 1
-#     for i in range(height):
-#         for j in range(width):
-#             if temp[i, j] == -1.5:
-#                 if b[i, j][0] == i and j - b[i, j][1] > 0:
-#                     temp[i, j] = j - b[i, j][1]
-#     print(count)
-#     if count==50:
-#         flag = False
+flag = True
+count = 0
+while (flag):
+    a, b = multi_scale_pm(img, ref)
+    count += 1
+    for i in range(height):
+        for j in range(width):
+            if temp[i, j] == -1.5:
+                if b[i, j][0] == i and j - b[i, j][1] > 0:
+                    temp[i, j] = j - b[i, j][1]
+    print(count)
+    if count==50:
+        flag = False
 #
 # count = 0
 # for i in range(height):
