@@ -107,8 +107,8 @@ class Net(nn.Module):
         # b = b.view(1, 3, shape[0], shape[1])
         a = imgL
         b = imgR
-        a = a.view(shape[0], shape[1], 32)
-        b = b.view(shape[0], shape[1], 32)
+        a = a.view(shape[0], shape[1], 16)
+        b = b.view(shape[0], shape[1], 16)
         depth = a.shape[2]
         patch_a = a.unfold(0, patch_size, 1).unfold(1, patch_size, 1) \
             .reshape(-1, depth * ((patch_size) ** 2))
