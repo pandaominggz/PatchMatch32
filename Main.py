@@ -77,6 +77,11 @@ if __name__ == '__main__':
         tt = loss_fn(x, dispL)
         tt.backward()
         optimizer.step()
+        diff = torch.abs(x.data.cpu() - dispL.data.cpu())
+        accuracy = torch.sum(diff < 3) / float(height * width * 1)
+        print('=======loss value for every step=======:', 1)
+        print('=======loss value for every step=======:%f' % (tt.data))
+        print('====accuracy for the result less than 3 pixels===:%f' % accuracy)
 
     # scale_factor = 0.5
     # a_h_s, a_w_s = int(img.size[1] * scale_factor), int(img.size[0] * scale_factor)
