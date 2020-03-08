@@ -76,6 +76,8 @@ if __name__ == '__main__':
             if count == 1:
                 flag = False
         x = temp.reshape((1, 1, height, width))
+        print(x.shape)
+        print(dispL.shape)
         tt = loss_fn(x, dispL)
         tt.backward()
         optimizer.step()
