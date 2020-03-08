@@ -42,8 +42,8 @@ if __name__ == '__main__':
     ref = Image.open('./right.png')
     #img = Image.open('./left.png')
     #ref = Image.open('./right.png')
-    width = 430
-    height = 540
+    width = 256
+    height = 512
     dispL = readPFM('./disp.pfm')[0].astype(np.uint8).reshape(540, 960, 1).transpose((2, 0, 1))
     dispL = dispL.reshape((1, 1, 540, 960))
     dispL = torch.from_numpy(dispL)
