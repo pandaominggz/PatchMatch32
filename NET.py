@@ -30,10 +30,10 @@ class Net(nn.Module):
         super(Net, self).__init__()
         # self.imgL = imgL
         # self.imgR = imgR
-        self.conv0 = nn.Conv2d(3, 32, 5, 1, 2)
-        self.bn0 = nn.BatchNorm2d(32)
-        self.res_block = self.res_layers(BasicBlock, 32, 32, 8, stride=1)
-        self.conv1 = nn.Conv2d(32, 32, 3, 1, 1)
+        self.conv0 = nn.Conv2d(3, 16, 5, 1, 2)
+        self.bn0 = nn.BatchNorm2d(16)
+        self.res_block = self.res_layers(BasicBlock, 16, 16, 8, stride=1)
+        self.conv1 = nn.Conv2d(16, 16, 3, 1, 1)
 
     def res_layers(self, block, in_planes, planes, num_block, stride):
         strides = [stride] + [1] * (num_block - 1)
