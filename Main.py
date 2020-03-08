@@ -75,7 +75,7 @@ if __name__ == '__main__':
                             temp[i, j] = 0.0
             if count == 1:
                 flag = False
-        x = temp.view(1, 1, height, width)
+        x = temp.reshape((1, 1, height, width))
         tt = loss_fn(x, dispL)
         tt.backward()
         optimizer.step()
