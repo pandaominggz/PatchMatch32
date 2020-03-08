@@ -12,7 +12,6 @@ from python_pfm import readPFM
 
 
 def multi_scale_pm(net,img, ref, patch_size=8, iterations=5, dtresh=0.01, itresh=1, device=None):
-    print(type(img))
     if device is None:
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -37,18 +36,21 @@ def multi_scale_pm(net,img, ref, patch_size=8, iterations=5, dtresh=0.01, itresh
 
 
 if __name__ == '__main__':
+    # img = Image.open('./cup_a.jpg')
+    # ref = Image.open('./cup_b.jpg')
+    img = Image.open('./left.png')
+    ref = Image.open('./right.png')
+    #img = Image.open('./left.png')
+    #ref = Image.open('./right.png')
+    width = 435
+    height = 540
     dispL = readPFM('./disp.pfm')[0].astype(np.uint8).reshape(540, 960, 1).transpose((2, 0, 1))
     dispL = dispL.reshape((1, 1, 540, 960))
     dispL = torch.from_numpy(dispL)
     dispL = dispL.cuda()
-    # img = Image.open('./cup_a.jpg')
-    # ref = Image.open('./cup_b.jpg')
-    img = Image.open('./left.jpg')
-    ref = Image.open('./right.jpg')
-    #img = Image.open('./left.png')
-    #ref = Image.open('./right.png')
-    width = img.size[0]
-    height = img.size[1]
+    randomH = 0
+    randomW = 0
+    dispL = dispL[:, :, randomH:(randomH + height), randomW:(randomW + width)]
     net = NET.Net()
     devices = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     net = net.to(devices)
