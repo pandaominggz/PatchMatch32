@@ -48,10 +48,12 @@ if __name__ == '__main__':
     dispL = readPFM('./disp.pfm')[0].astype(np.uint8).reshape(540, 960, 1).transpose((2, 0, 1))
     dispL = dispL.reshape((1, 1, 540, 960))
     dispL = torch.from_numpy(dispL)
-    dispL = dispL.cuda()
+    disL = Variable(torch.FloatTensor(1).cuda())
+    result = Variable(torch.FloatTensor(1).cuda())
     randomH = 0
     randomW = 0
     dispL = dispL[:, :, randomH:(randomH + height), randomW:(randomW + width)]
+    disL.resize_(dispL.size()).copy_(dispL)
     net = NET.Net()
     devices = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     net = net.to(devices)
@@ -78,10 +80,8 @@ if __name__ == '__main__':
                 flag = False
         x = temp.reshape((1, 1, height, width))
         x = torch.from_numpy(x)
-        x= Variable(x.cuda())
-        print(x.shape)
-        print(dispL.shape)
-        tt = loss_fn(x, dispL)
+        result.resize_(x.size()).copy_(x)
+        tt = loss_fn(x, disL)
         print(type(x))
         print(type(dispL))
         tt.backward()

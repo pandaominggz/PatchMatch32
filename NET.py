@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import transforms
+from torch.autograd import Variable
 import math
 from PIL import Image
 import cv2
@@ -57,12 +58,18 @@ class Net(nn.Module):
         a = img_to_tens(padder(image_a)).detach().permute(1, 2, 0).to(device)
         b = img_to_tens(padder(image_b)).detach().permute(1, 2, 0).to(device)
         shape = a.shape
-        print(shape)
         imgL = a.reshape((1, 3, shape[0], shape[1]))
         imgR = b.reshape((1, 3, shape[0], shape[1]))
+        imgL = torch.from_numpy(imgL)
+        imgR = torch.from_numpy(imgR)
 
-        imgL = F.relu(self.bn0(self.conv0(imgL)))
-        imgR = F.relu(self.bn0(self.conv0(imgR)))
+        imL = Variable(torch.FloatTensor(1).cuda())
+        imR = Variable(torch.FloatTensor(1).cuda())
+        imL.resize_(imgL.size()).copy_(imgL)
+        imR.resize_(imgR.size()).copy_(imgR)
+
+        imgL = F.relu(self.bn0(self.conv0(imL)))
+        imgR = F.relu(self.bn0(self.conv0(imR)))
 
         imgL_block = self.res_block(imgL)
         imgR_block = self.res_block(imgR)
