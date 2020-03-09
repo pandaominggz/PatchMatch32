@@ -3,6 +3,7 @@ from torchvision import transforms
 import math
 from PIL import Image
 import cv2
+from torch.autograd import Variable
 import numpy as np
 import torch.optim as optim
 import torch.nn as nn
@@ -77,7 +78,7 @@ if __name__ == '__main__':
                 flag = False
         x = temp.reshape((1, 1, height, width))
         x = torch.from_numpy(x)
-        x= x.cuda()
+        x= Variable(x.cuda())
         print(x.shape)
         print(dispL.shape)
         tt = loss_fn(x, dispL)
