@@ -76,9 +76,13 @@ if __name__ == '__main__':
             if count == 1:
                 flag = False
         x = temp.reshape((1, 1, height, width))
+        x = torch.from_numpy(x)
+        x= x.cuda()
         print(x.shape)
         print(dispL.shape)
         tt = loss_fn(x, dispL)
+        print(type(x))
+        print(type(dispL))
         tt.backward()
         optimizer.step()
         diff = torch.abs(x.data.cpu() - dispL.data.cpu())
